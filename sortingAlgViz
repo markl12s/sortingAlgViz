@@ -24,6 +24,10 @@ class array_data:
             array_data.unsortedArray.append(random.randint(1, 100))
             array_data.currentSorts.append('black')
 
+    def reset_colors(self, array):
+        for i in range(len(array)):
+            array[i] = 'black'
+
 
 """
 ---------------------------------------------------------------------------------------------------------------------
@@ -74,21 +78,23 @@ class bubble_sort:
         while not isSorted:
             isSorted = True
             for i in range(sortsLeft):
+                toSwitch = False
                 colorArray[i] = 'green'
 
                 if integerArray[i] > integerArray[i + 1]:
+                    toSwitch = True
                     colorArray[i + 1] = 'red'
                     isSorted = False
 
                 visualization.update_screen('screen update', 0.05, array_data.unsortedArray)
 
-                for j in range(50):
-                    colorArray[j] = 'black'
+                array_data.reset_colors('reset', colorArray)
 
-                if integerArray[i] > integerArray[i + 1]:
+                if toSwitch:
                     integerArray[i], integerArray[i + 1] = integerArray[i + 1], integerArray[i]
 
             sortsLeft -= 1
+
             if isSorted == True:
                 return False
 
